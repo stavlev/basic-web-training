@@ -1,20 +1,20 @@
 const heroesJson = loadJson();
 
-/*console.log(heroesJson);*/
+console.log(heroesJson);
 
 const heroes = getHeroes();
 
-/*console.log(groupBy(heroes));*/
-/*console.log(groupBy(heroes, 'name'));*/
+console.log(groupBy(heroes));
+console.log(groupBy(heroes, 'name'));
 
-/*console.log(getByRoles(heroes, ['Offense']));
-console.log(getByRoles(heroes, ['Support', 'Offense']));*/
+console.log(getByRoles(heroes, ['Offense']));
+console.log(getByRoles(heroes, ['Support', 'Offense']));
 
-var niceHeroes = makeHeroesNice(heroes);
+const niceHeroes = makeHeroesNice(heroes);
 niceHeroes[0].sayHello();
 
 function loadJson() {
-    var jsonFile = require('./ow.json');
+    const jsonFile = require('./ow.json');
     return jsonFile;
 };
 
@@ -22,7 +22,7 @@ function getHeroes() {
     const names = heroesJson.names;
     const roles = heroesJson.roles;
 
-    const heroes = names.map(function (currName, currIndex) {
+    const heroes = names.map((currName, currIndex) => {
         return {
             name: currName,
             role: roles[currIndex]
@@ -33,18 +33,15 @@ function getHeroes() {
 };
 
 function groupBy(array, propToGroupBy) {
-    const resultArray = array.reduce(function (groupedByArray, currElement) {
+    const resultArray = array.reduce((groupedByArray, currElement) => {
         propToGroupBy = propToGroupBy || 'role';
 
-        var currValOfPropToGroupBy = currElement[propToGroupBy]; // Equivalent to 'currElement.role' (or 'currElement.name' etc.)
-        var currValOfKeyToGroupBy = groupedByArray[currValOfPropToGroupBy];
+        const currValOfPropToGroupBy = currElement[propToGroupBy]; // Equivalent to 'currElement.role' (or 'currElement.name' etc.)
+        const currValOfKeyToGroupBy = groupedByArray[currValOfPropToGroupBy];
 
         if (!currValOfKeyToGroupBy) {
             groupedByArray[currValOfPropToGroupBy] = [];
         }
-        /* else {
-                    groupedByArray[currValOfPropToGroupBy] = currValOfKeyToGroupBy;
-                }*/
 
         (groupedByArray[currValOfPropToGroupBy]).push(currElement); // Push the hero object to the cell in the result array which has the selected key
 
@@ -55,8 +52,8 @@ function groupBy(array, propToGroupBy) {
 };
 
 function getByRoles(array, requestedRoles) {
-    return array.filter(function (element) {
-        var doesElementHaveAnyOfTheRequestedRoles = requestedRoles.some(function (requestedRole) {
+    return array.filter(element => {
+        const doesElementHaveAnyOfTheRequestedRoles = requestedRoles.some(requestedRole => {
             return requestedRole === element.role;
         });
 
@@ -67,11 +64,11 @@ function getByRoles(array, requestedRoles) {
 };
 
 function makeHeroesNice(heroes) {
-    heroes.forEach(function(hero) {
-       hero.sayHello = function() {
+    heroes.forEach(hero =>
+       hero.sayHello = () => {
            console.log("Hi! My name is " + hero.name + ", nice to meet you!");
-       };
-    });
+       }
+    );
 
     return heroes;
 };
